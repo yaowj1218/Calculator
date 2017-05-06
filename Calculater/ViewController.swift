@@ -23,19 +23,40 @@ class ViewController: UIViewController {
     @IBOutlet private weak var display: UILabel!
     
      var isHaveNumber:Bool=false
-    
+    var isHavedot:Bool=false
     @IBAction private func numberButton(_ sender: UIButton) {
         
         let number = sender.currentTitle!
         print("touch \(number) button")
-       
-        if isHaveNumber {
+        
+        
+      
+       if number=="."{
+        if isHavedot==false {
+            if isHaveNumber {
+            let textCurrentInDisplay=display!.text!
+            display!.text=textCurrentInDisplay+number
+        }else{
+            display!.text="0"+number
+        }
+            isHaveNumber=true
+        }
+        
+        isHavedot=true
+        
+       }else{
+          if isHaveNumber {
             let textCurrentInDisplay=display!.text!
             display!.text=textCurrentInDisplay+number
         }else{
             display!.text=number
         }
         isHaveNumber=true
+
+        }
+
+              
+                
     }
     
    private var  displayValue:Double {
@@ -50,9 +71,11 @@ class ViewController: UIViewController {
     private var brain = CalculatorBrain()
     
     @IBAction private func mathOperation(_ sender: UIButton) {
+        
         if isHaveNumber{
             brain.setOperand(operand: displayValue)
             isHaveNumber=false
+            isHavedot=false
         }
         if let mathSymbol=sender.currentTitle
         {
